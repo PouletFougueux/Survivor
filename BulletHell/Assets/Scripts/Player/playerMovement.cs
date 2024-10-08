@@ -12,10 +12,13 @@ public class playerMovement : MonoBehaviour
     public float lastYValue;
     [HideInInspector]
     public Vector2 moveDirection;
+    [HideInInspector]
+    public Vector2 lastMovedDirection;
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        lastMovedDirection = new Vector2(1, 0f);
     }
 
     // Update is called once per frame
@@ -38,10 +41,16 @@ public class playerMovement : MonoBehaviour
         if (moveDirection.x != 0)
         {
             lastXValue = moveDirection.x;
+            lastMovedDirection = new Vector2(lastXValue, 0);
         }
         if (moveDirection.y != 0)
         {
             lastYValue = moveDirection.y;
+            lastMovedDirection = new Vector2(0, lastYValue);
+        }
+        if (moveDirection.x != 0 && moveDirection.y != 0)
+        {
+            lastMovedDirection = new Vector2(lastXValue, lastYValue);
         }
     }
 
