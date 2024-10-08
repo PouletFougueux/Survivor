@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class playerMovement : MonoBehaviour
+{
+    public float speed;
+    private Rigidbody2D body;
+    [HideInInspector]
+    public float lastXValue;
+    [HideInInspector]
+    public float lastYValue;
+    [HideInInspector]
+    public Vector2 moveDirection;
+    // Start is called before the first frame update
+    void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        InputManagement();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    void InputManagement()
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector2(x, y).normalized; 
+
+        if (moveDirection.x != 0)
+        {
+            lastXValue = moveDirection.x;
+        }
+        if (moveDirection.y != 0)
+        {
+            lastYValue = moveDirection.y;
+        }
+    }
+
+    void Move()
+    {
+        body.velocity = moveDirection * speed;
+    }
+}
