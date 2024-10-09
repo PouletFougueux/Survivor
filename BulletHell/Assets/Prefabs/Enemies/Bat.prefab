@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 4371227706654755086}
   - component: {fileID: -5325828656770435}
   - component: {fileID: -3348282396537605431}
+  - component: {fileID: -3268579175270036013}
+  - component: {fileID: 1917208110298254793}
   m_Layer: 0
   m_Name: Bat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,3 +168,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: f751c73c23549964286db503a1a1a681, type: 2}
+--- !u!114 &-3268579175270036013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6759900347427393243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74e0fa0f6d009654fa27034142218326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: f751c73c23549964286db503a1a1a681, type: 2}
+--- !u!114 &1917208110298254793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6759900347427393243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bb9dc5bd5b19b4c8139cab83aedd61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - name: XpGem
+    itemPrefab: {fileID: 2946263890866466848, guid: ec24417cccc50454da3bb4a3ed23b1af, type: 3}
+    dropRate: 50

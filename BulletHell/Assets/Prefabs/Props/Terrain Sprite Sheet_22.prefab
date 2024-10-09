@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 803914552265827009}
   - component: {fileID: 3472857757265069202}
   - component: {fileID: -4553530210437906954}
+  - component: {fileID: 1350664610524666811}
+  - component: {fileID: -5905035715201488960}
   m_Layer: 0
   m_Name: Terrain Sprite Sheet_22
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,3 +132,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5112617, y: 1.4991443}
   m_EdgeRadius: 0
+--- !u!114 &1350664610524666811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459982119597952736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e1e675c095a3544b3f1275fbb1ae8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+--- !u!114 &-5905035715201488960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459982119597952736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bb9dc5bd5b19b4c8139cab83aedd61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - name: HealthPot
+    itemPrefab: {fileID: 942784105545346406, guid: 84f77ead1ca91b8468c35c0e82dd9ee8, type: 3}
+    dropRate: 50
