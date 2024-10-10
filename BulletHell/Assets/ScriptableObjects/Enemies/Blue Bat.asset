@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ab57d453da67a4bb2477511da9f029, type: 3}
-  m_Name: Oignon
+  m_Script: {fileID: 11500000, guid: 2785a62c1ba252e4bb713e95acc48a51, type: 3}
+  m_Name: Blue Bat
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 951318710904187336, guid: 53f40a12ff73eb84385e5e5b698b7040, type: 3}
-  maxHealth: 700
-  regen: 1
-  moveSpeed: 10
-  might: 1.5
-  projectileSpeed: 1
-  pickupRange: 3
+  moveSpeed: 3
+  maxHealth: 10
+  damage: 30

@@ -18,8 +18,6 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector]
     public float currentPickupRange;
 
-    public List<GameObject> spawnedWeapons;
-
     [Header("Leveling")]
     public int experience = 0;
     public int level = 1;
@@ -40,10 +38,20 @@ public class PlayerStats : MonoBehaviour
     float invincibilityTimer;
     bool isInvincible;
 
+    InventoryManager inventory;
+    public int weaponIndex;
+    public int passiveItemIndex;
+
+    public GameObject secondWeaponTest;
+    public GameObject firstPassiveTest, secondPassiveTest;
+
     private void Awake()
     {
         characterData = CharacterSelector.GetData();
         CharacterSelector.instance.DestroySingleton();
+
+        inventory = GetComponent<InventoryManager>();
+
         currentHealth = characterData.MaxHealth;
         currentRegen = characterData.Regen;
         currentMoveSpeed = characterData.MoveSpeed;
@@ -52,6 +60,9 @@ public class PlayerStats : MonoBehaviour
         currentPickupRange = characterData.PickupRange;
 
         SpawnWeapon(characterData.StartingWeapon);
+        SpawnWeapon(secondWeaponTest);
+        SpawnPassiveItem(firstPassiveTest);
+        SpawnPassiveItem(secondPassiveTest);
     }
     void Start()
     {
@@ -138,8 +149,24 @@ public class PlayerStats : MonoBehaviour
 
     public void SpawnWeapon(GameObject weapon)
     {
+        if ( weaponIndex >= inventory.weaponSlots.Count -1)
+        {
+            return;
+        }
         GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
         spawnedWeapon.transform.SetParent(transform);
-        spawnedWeapons.Add(spawnedWeapon);
+        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>());
+        weaponIndex++;
+    }
+    public void SpawnPassiveItem(GameObject passiveItem)
+    {
+        if (passiveItemIndex >= inventory.passiveItemSlots.Count - 1)
+        {
+            return;
+        }
+        GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
+        spawnedPassiveItem.transform.SetParent(transform);
+        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItem>());
+        passiveItemIndex++;
     }
 }

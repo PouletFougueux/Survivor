@@ -18,3 +18,6 @@ MonoBehaviour:
   coolDownDuration: 3
   pierce: 0
   duration: 2
+  level: 1
+  nextLevelPrefab: {fileID: 951318710904187336, guid: 30e10e69451302c479c060b90694c4d0, type: 3}
+  icon: {fileID: 47049040, guid: 7c6a9c09b04f3484ba63f2b568520d84, type: 3}
