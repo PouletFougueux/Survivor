@@ -4,19 +4,105 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    #region Character Stats
     private CharacterScriptableObject characterData;
-    [HideInInspector]
-    public float currentHealth;
-    [HideInInspector]
-    public float currentRegen;
-    [HideInInspector]
-    public float currentMoveSpeed;
-    [HideInInspector]
-    public float currentMight;
-    [HideInInspector]
-    public float currentProjectileSpeed;
-    [HideInInspector]
-    public float currentPickupRange;
+    float currentHealth;
+    public float CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            if (currentHealth != value)
+            {
+                currentHealth = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentHealthDisplay.text = "Health : " + currentHealth;
+                }
+            }
+        }
+    }
+    float currentRegen;
+    public float CurrentRegen
+    {
+        get { return currentRegen; }
+        set
+        {
+            if (currentRegen != value)
+            {
+                currentRegen = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentRegenDisplay.text = "Regen : " + currentRegen;
+                }
+            }
+        }
+    }
+    float currentMoveSpeed;
+    public float CurrentMoveSpeed
+    {
+        get { return currentMoveSpeed; }
+        set
+        {
+            if (currentMoveSpeed != value)
+            {
+                currentMoveSpeed = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed : " + currentMoveSpeed;
+                }
+            }
+        }
+    }
+    float currentMight;
+    public float CurrentMight
+    {
+        get { return currentMight; }
+        set
+        {
+            if (currentMight != value)
+            {
+                currentMight = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentMightDisplay.text = "Might : " + currentMight;
+                }
+            }
+        }
+    }
+    float currentProjectileSpeed;
+    public float CurrentProjectileSpeed
+    {
+        get { return currentProjectileSpeed; }
+        set
+        {
+            if (currentProjectileSpeed != value)
+            {
+                currentProjectileSpeed = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed : " + currentProjectileSpeed;
+                }
+            }
+        }
+    }
+    float currentPickupRange;
+    public float CurrentPickupRange
+    {
+        get { return currentPickupRange; }
+        set
+        {
+            if (currentPickupRange != value)
+            {
+                currentPickupRange = value;
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.currentPickupRangeDisplay.text = "Pickup Range : " + currentPickupRange;
+                }
+            }
+        }
+    }
+    #endregion
 
     [Header("Leveling")]
     public int experience = 0;
@@ -47,17 +133,19 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        
         characterData = CharacterSelector.GetData();
         CharacterSelector.instance.DestroySingleton();
 
+
         inventory = GetComponent<InventoryManager>();
 
-        currentHealth = characterData.MaxHealth;
-        currentRegen = characterData.Regen;
-        currentMoveSpeed = characterData.MoveSpeed;
-        currentMight = characterData.Might;
-        currentProjectileSpeed = characterData.ProjectileSpeed;
-        currentPickupRange = characterData.PickupRange;
+        CurrentHealth = characterData.MaxHealth;
+        CurrentRegen = characterData.Regen;
+        CurrentMoveSpeed = characterData.MoveSpeed;
+        CurrentMight = characterData.Might;
+        CurrentProjectileSpeed = characterData.ProjectileSpeed;
+        CurrentPickupRange = characterData.PickupRange;
 
         SpawnWeapon(characterData.StartingWeapon);
         SpawnWeapon(secondWeaponTest);
@@ -67,9 +155,18 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         experienceCap = levelRanges[0].experienceCapIncrease;
+
+        GameManager.instance.currentHealthDisplay.text = "Health : " + currentHealth;
+        GameManager.instance.currentRegenDisplay.text = "Regen : " + currentRegen;
+        GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed : " + currentMoveSpeed;
+        GameManager.instance.currentMightDisplay.text = "Might : " + currentMight;
+        GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed : " + currentProjectileSpeed;
+        GameManager.instance.currentPickupRangeDisplay.text = "Pickup Range : " + currentPickupRange;
+        GameManager.instance.AssignCharacterUIData(characterData);
+
     }
 
-    private void Update()
+        private void Update()
     {
         if (invincibilityTimer > 0)
         {
@@ -111,10 +208,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (!isInvincible)
         {
-            currentHealth -= dmg;
+            CurrentHealth -= dmg;
             invincibilityTimer = invincibilityDuration;
             isInvincible = true;
-            if (currentHealth <= 0)
+            if (CurrentHealth <= 0)
             {
                 Kill();
             }
@@ -124,27 +221,32 @@ public class PlayerStats : MonoBehaviour
 
     public void Heal(float amount)
     {
-        if (currentHealth < characterData.MaxHealth)
+        if (CurrentHealth < characterData.MaxHealth)
         {
-            currentHealth += amount;
-            if (currentHealth > characterData.MaxHealth)
-                currentHealth = characterData.MaxHealth;
+            CurrentHealth += amount;
+            if (CurrentHealth > characterData.MaxHealth)
+                CurrentHealth = characterData.MaxHealth;
         }
         
     }
     void Regen()
     {
-        if (currentHealth < characterData.MaxHealth)
+        if (CurrentHealth < characterData.MaxHealth)
         {
-            currentHealth += currentRegen * Time.deltaTime;
+            CurrentHealth += CurrentRegen * Time.deltaTime;
             if (currentHealth > characterData.MaxHealth)
-                currentHealth = characterData.MaxHealth;
+                CurrentHealth = characterData.MaxHealth;
         }
     }
 
     public void Kill()
     {
-        Debug.Log("TMOOORT");
+        if (!GameManager.instance.isGameOver)
+        {
+            GameManager.instance.AssignLevelReachedUI(level);
+            GameManager.instance.AssignChosenWeaponsAndPassiveItems(inventory.weaponsUISlots, inventory.passiveItemUISlots);
+            GameManager.instance.GameOver();
+        }
     }
 
     public void SpawnWeapon(GameObject weapon)

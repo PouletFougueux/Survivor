@@ -18,7 +18,7 @@ public class PlayerCollector : MonoBehaviour
 
     private void Update()
     {
-        collector.radius = player.currentPickupRange;
+        collector.radius = player.CurrentPickupRange;
         if (rbTest != null )
         {
             rbTest.AddForce(direction * pullSpeed);
